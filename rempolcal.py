@@ -1,11 +1,13 @@
 from matplotlib import pyplot as plt
-from pandas import read_csv
+from pandas import read_csv, DataFrame
 import numpy as np
 
 #データファイル名
-filename = "100OHM.CSV"
+filename = "filename.csv"
 
-df = read_csv(filename, delimiter=",", header=0)
+#グラフだけでなく、CSVファイルとして分極値を出力したいときは、
+#ここをTrueにすること
+makecsv = False
 
 #レファレンスキャパシタの静電容量 F
 C = 100 * 1e-9
@@ -24,6 +26,8 @@ e = 1.60e-19
 
 #サンプルの電極の面積 m^2
 S = np.power(r*0.1/100,2)*np.pi
+
+df = read_csv(filename, delimiter=",", header=0)
 
 x = df.iloc[:,1].to_numpy()
 y = df.iloc[:,2].to_numpy()
@@ -56,3 +60,7 @@ plt.vlines(x=0,ymin=plt.ylim()[0], ymax=plt.ylim()[1], linestyles="dashed", colo
 plt.tight_layout()
 plt.savefig("{0}.pdf".format(filename))
 plt.show()
+
+if makecsv:
+    df = DataFrame({'E [MV/cm]': E_MV_cm, 'P [mircoC/cm2]' : P_microC_cm2})
+    df.to_csv("{0}.csv".format(filename), index=False)
