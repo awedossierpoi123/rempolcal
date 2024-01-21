@@ -56,11 +56,11 @@ plt.xlabel("E [MV/cm]", fontsize=font_label_size)
 plt.ylabel("P [$\mu$C/$cm^{2}$]", fontsize=font_label_size)
 
 plt.plot(E_MV_cm, P_microC_cm2, linewidth=1)
-plt.vlines(x=0,ymin=plt.ylim()[0], ymax=plt.ylim()[1], linestyles="dashed", colors="black")
+plt.vlines(x=0, ymin=plt.ylim()[0], ymax=plt.ylim()[1], linestyles="dashed", colors="black")
 plt.tight_layout()
 plt.savefig("{0}.pdf".format(filename))
 plt.show()
 
 if makecsv:
-    df = DataFrame({'E [MV/cm]': E_MV_cm, 'P [mircoC/cm2]' : P_microC_cm2})
+    df = DataFrame({'E [MV/cm]': E_MV_cm, 'P [microC/cm2]' : P_microC_cm2})
     df.to_csv("{0}.csv".format(filename), index=False)
