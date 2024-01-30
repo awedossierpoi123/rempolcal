@@ -84,7 +84,7 @@ if makecsv:
     df = DataFrame(
         {'E [MV/cm]': E_MV_cm, 
          'P [microC/cm2]' : P_microC_cm2,
-         'I [microA/cm2]' : I_A_cm2,
-         'I_smoothed [microA/cm2]' : I_A_cm2_smoothed
+         'I [A/cm2]' : I_A_cm2,
+         'I_smoothed [A/cm2]' : I_A_cm2_smoothed
          })
     df.to_csv("{0}.csv".format(filename), index=False)
