@@ -69,10 +69,10 @@ plt.xlabel("E [MV/cm]", fontsize=font_label_size)
 plt.ylabel("A [$A/cm^{2}$]", fontsize=font_label_size)
 plt.tick_params(labelsize=font_tick_size)
 
-I_microA_cm2 = np.gradient(P_microC_cm2*10**(-6), delta_t)
-I_microA_cm2_smoothed = savgol_filter(I_microA_cm2, window_length=window_length, polyorder=2)
+I_A_cm2 = np.gradient(P_microC_cm2*10**(-6), delta_t)
+I_A_cm2_smoothed = savgol_filter(I_A_cm2, window_length=window_length, polyorder=2)
 
-plt.plot(E_MV_cm, I_microA_cm2_smoothed, linewidth=linewidth)
+plt.plot(E_MV_cm, I_A_cm2_smoothed, linewidth=linewidth)
 
 plt.vlines(x=0, ymin=plt.ylim()[0], ymax=plt.ylim()[1], linestyles="dashed", colors="black")
 plt.hlines(y=0, xmin=plt.xlim()[0], xmax=plt.xlim()[1], linestyles="dashed", colors="black")
@@ -84,7 +84,7 @@ if makecsv:
     df = DataFrame(
         {'E [MV/cm]': E_MV_cm, 
          'P [microC/cm2]' : P_microC_cm2,
-         'I [microA/cm2]' : I_microA_cm2,
-         'I_smoothed [microA/cm2]' : I_microA_cm2_smoothed
+         'I [microA/cm2]' : I_A_cm2,
+         'I_smoothed [microA/cm2]' : I_A_cm2_smoothed
          })
     df.to_csv("{0}.csv".format(filename), index=False)
