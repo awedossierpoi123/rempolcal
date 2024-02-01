@@ -4,7 +4,8 @@ import numpy as np
 from scipy.signal import savgol_filter
 
 #データファイル名
-filename = "filename.csv"
+#filename = "filename.csv"
+filename = "100OHM.CSV"
 
 #グラフだけでなく、CSVファイルとして分極値を出力したいときは、
 #ここをTrueにすること
@@ -69,8 +70,8 @@ plt.xlabel("E [MV/cm]", fontsize=font_label_size)
 plt.ylabel("A [$A/cm^{2}$]", fontsize=font_label_size)
 plt.tick_params(labelsize=font_tick_size)
 
-I_A_cm2 = np.gradient(P_microC_cm2*10**(-6), delta_t)
-I_A_cm2_smoothed = savgol_filter(I_A_cm2, window_length=window_length, polyorder=2)
+P_microC_cm2_smoothed = savgol_filter(P_microC_cm2, window_length=window_length, polyorder=2)
+I_A_cm2_smoothed = np.gradient(P_microC_cm2_smoothed*10**(-6), delta_t)
 
 plt.plot(E_MV_cm, I_A_cm2_smoothed, linewidth=linewidth)
 
@@ -84,7 +85,7 @@ if makecsv:
     df = DataFrame(
         {'E [MV/cm]': E_MV_cm, 
          'P [microC/cm2]' : P_microC_cm2,
-         'I [A/cm2]' : I_A_cm2,
+         'P_smoothed [microC/cm2]' : P_microC_cm2_smoothed,
          'I_smoothed [A/cm2]' : I_A_cm2_smoothed
          })
     df.to_csv("{0}.csv".format(filename), index=False)
